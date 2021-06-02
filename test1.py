@@ -1,6 +1,6 @@
 import requests
 import tarfile
-
+import subprocess
 
 glpiUrl='https://github.com/glpi-project/glpi/releases/download/9.5.2/glpi-9.5.2.tgz'
 downloadFile='/tmp/glpi-9.5.2.tgz'
@@ -34,6 +34,22 @@ def untar (file, path):
                         tar.close()
         except:
                 print("erreur2")
+
+def package ():
+        try:
+                package_name = "<apache2><php><libapache2-mod-php><mariadb-server>"
+                subprocess.run(["sudo", "apt", "install", "-y", package_name], check=True)
+                
+        except:
+                print("erreur3")
+
+def package2 ():
+        try:
+                package_name1 = "<php-mysqli><php-mbstring><php-curl><php-gd><php-simplexml><php-intl><php-ldap><php-apcu><php-xmlrpc><php-cas><php-zip><php-bz2><php-ldap><php-imap>"
+                subprocess.run(["sudo", "apt", "install", "-y", package_name1], check=True)
+
+        except:
+                print("erreur4")
 
 #menu() 
 telechargement(glpiUrl, downloadFile)
