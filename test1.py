@@ -37,16 +37,16 @@ def untar (file, path):
 
 def package ():
         try:
-                package_name = "<apache2><php><libapache2-mod-php><mariadb-server>"
-                subprocess.run(["sudo", "apt", "install", "-y", package_name], check=True)
-                
+#                package_name = "<apache2><php><libapache2-mod-php><mariadb-server>"
+#                subprocess.run(["apt", "install", "-y", package_name], check=True)
+                 subprocess.call("apt install apache2 php libapache2-mod-php mariadb-server -y", shell=True)
         except:
                 print("erreur3")
 
 def package2 ():
         try:
                 package_name1 = "<php-mysqli><php-mbstring><php-curl><php-gd><php-simplexml><php-intl><php-ldap><php-apcu><php-xmlrpc><php-cas><php-zip><php-bz2><php-ldap><php-imap>"
-                subprocess.run(["sudo", "apt", "install", "-y", package_name1], check=True)
+                subprocess.run(["apt", "install", "-y", package_name1], check=True)
 
         except:
                 print("erreur4")
@@ -54,3 +54,4 @@ def package2 ():
 #menu() 
 telechargement(glpiUrl, downloadFile)
 untar(downloadFile, extractDir)
+package()
