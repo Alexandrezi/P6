@@ -5,16 +5,7 @@ import subprocess
 glpiUrl='https://github.com/glpi-project/glpi/releases/download/9.5.2/glpi-9.5.2.tgz'
 downloadFile='/tmp/glpi-9.5.2.tgz'
 extractDir = '/tmp'
-
-def menu ():
-        choix = int(input("faire son choix"))
-        if choix == "1":
-                telechargement()
-                untar ()
-                print ("téléchargemrnt + untar")
-        else:
-                print ("probleme")
-                        
+                     
         
 def telechargement (url, download):
 #import requests
@@ -36,6 +27,7 @@ def untar (file, path):
                 print("erreur2")
 
 def package ():
+#apt install package
         try:
 #                package_name = "<apache2><php><libapache2-mod-php><mariadb-server>"
 #                subprocess.run(["apt", "install", "-y", package_name], check=True)
@@ -44,14 +36,20 @@ def package ():
                 print("erreur3")
 
 def package2 ():
+#apt install package+
         try:
-                package_name1 = "<php-mysqli><php-mbstring><php-curl><php-gd><php-simplexml><php-intl><php-ldap><php-apcu><php-xmlrpc><php-cas><php-zip><php-bz2><php-ldap><php-imap>"
-                subprocess.run(["apt", "install", "-y", package_name1], check=True)
-
+#               package_name1 = "<php-mysqli><php-mbstring><php-curl><php-gd><php-simplexml><php-intl><php-ldap><php-apcu><php-xmlrpc><php-cas><php-zip><php-bz2><php-ldap><php-imap>"
+#               subprocess.run(["apt", "install", "-y", package_name1], check=True)
+                subprocess.call("apt install php-mysqli php-mbstring php-curl php-gd php-simplexml php-intl php-ldap php-apcu php-xmlrpc php-cas php-zip php-bz2 php-ldap 			php-imap -y", shell=True)
         except:
                 print("erreur4")
+
+def mysqlinstall ():
+	try:
+		subprocess.call("mysql_secure_installation", shell=True)
 
 #menu() 
 telechargement(glpiUrl, downloadFile)
 untar(downloadFile, extractDir)
 package()
+package2()
