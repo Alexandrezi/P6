@@ -1,11 +1,12 @@
 import requests
 import tarfile
 import subprocess
+import os
 
 glpiUrl='https://github.com/glpi-project/glpi/releases/download/9.5.2/glpi-9.5.2.tgz'
 downloadFile='/tmp/glpi-9.5.2.tgz'
 extractDir = '/tmp'
-Package = ["apache2", "php", "libapache2-mod-php", "mariadb-server", "php-mysqli", "php-mbstring", "php-curl", "php-gd", "php-simplexml", "php-intl", "php-ldap", "php-apcu", "php-xmlrpc", "php-cas", "php-zip", "php-bz2", "php-ldap",	"php-imap"]                     
+Package = ["apache2", "php", "libapache2-mod-php", "mariadb-server", "php-mysqli", "php-mbstring", "php-curl", "php-gd", "php-simplexml", "php-intl", "php-ldap", "php-apcu", "php-xmlrpc", "php-cas", "php-zip", "php-bz2", "php-ldap", "php-imap"]                     
         
 def telechargement (url, download):
 #import requests
@@ -33,13 +34,6 @@ def installpackage (onepackagetoinstall):
         except:
                 print("erreur3")
 
-def package2 ():
-#apt install package+
-        try:
-                subprocess.call("apt install php-mysqli php-mbstring php-curl php-gd php-simplexml php-intl php-ldap php-apcu php-xmlrpc php-cas php-zip php-bz2 php-ldap 			php-imap -y", shell=True)
-        except:
-                print("erreur4")
-
 #def mysqlinstall ():
 #	try:
 #		subprocess.call("mysql_secure_installation", shell=True)
@@ -52,10 +46,20 @@ def package2 ():
 #		subprocess.call("mysql -u root -p", shell=True)
 #		subprocess.call("create database db_glpi;", shell=True)
 
-#menu()
+
+def copie ():
+	try:
+		os.system("shopt -s dotglob")
+		os.system("rm /var/www/html/index.html")
+		os.system("cp -r /tmp/glpi/* /var/www/html")
+		os.system("chown -R www-data /var/www/html")
+	except:
+		print("x") 
+
+
 telechargement(glpiUrl, downloadFile)
 untar(downloadFile, extractDir)
 for onePackage in Package:
   installpackage(onePackage)
-package2()
 #mysqlinstall()
+copie()
