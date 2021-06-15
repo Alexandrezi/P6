@@ -5,7 +5,7 @@ import subprocess
 glpiUrl='https://github.com/glpi-project/glpi/releases/download/9.5.2/glpi-9.5.2.tgz'
 downloadFile='/tmp/glpi-9.5.2.tgz'
 extractDir = '/tmp'
-                     
+Package = ["apache2", "php", "libapache2-mod-php", "mariadb-server", "php-mysqli", "php-mbstring", "php-curl", "php-gd", "php-simplexml", "php-intl", "php-ldap", "php-apcu", "php-xmlrpc", "php-cas", "php-zip", "php-bz2", "php-ldap",	"php-imap"]                     
         
 def telechargement (url, download):
 #import requests
@@ -26,30 +26,36 @@ def untar (file, path):
         except:
                 print("erreur2")
 
-def package ():
+def installpackage (onepackagetoinstall): 
 #apt install package
         try:
-#                package_name = "<apache2><php><libapache2-mod-php><mariadb-server>"
-#                subprocess.run(["apt", "install", "-y", package_name], check=True)
-                 subprocess.call("apt install apache2 php libapache2-mod-php mariadb-server -y", shell=True)
+                 subprocess.call("apt install -y " + onepackagetoinstall, shell=True)
         except:
                 print("erreur3")
 
 def package2 ():
 #apt install package+
         try:
-#               package_name1 = "<php-mysqli><php-mbstring><php-curl><php-gd><php-simplexml><php-intl><php-ldap><php-apcu><php-xmlrpc><php-cas><php-zip><php-bz2><php-ldap><php-imap>"
-#               subprocess.run(["apt", "install", "-y", package_name1], check=True)
                 subprocess.call("apt install php-mysqli php-mbstring php-curl php-gd php-simplexml php-intl php-ldap php-apcu php-xmlrpc php-cas php-zip php-bz2 php-ldap 			php-imap -y", shell=True)
         except:
                 print("erreur4")
 
-def mysqlinstall ():
-	try:
-		subprocess.call("mysql_secure_installation", shell=True)
+#def mysqlinstall ():
+#	try:
+#		subprocess.call("mysql_secure_installation", shell=True)
+#		subprocess.call("y", shell=True)
+#	except:
+#		print("erreur5")
 
-#menu() 
+#def mysqlinstall2 ():
+#	try:
+#		subprocess.call("mysql -u root -p", shell=True)
+#		subprocess.call("create database db_glpi;", shell=True)
+
+#menu()
 telechargement(glpiUrl, downloadFile)
 untar(downloadFile, extractDir)
-package()
+for onePackage in Package:
+  installpackage(onePackage)
 package2()
+#mysqlinstall()
