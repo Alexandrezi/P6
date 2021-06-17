@@ -56,6 +56,12 @@ def copie ():
 	except:
 		print("x") 
 
+def installglpi ():
+	try:
+		os.system("php /var/www/html/bin/console db:install --reconfigure --default-language=en_GB --db-name=db_glpi --db-user=admindb_glpi --db-password=MDP --force -n")
+	except:
+		print("erreur installation glpi")
+
 
 telechargement(glpiUrl, downloadFile)
 untar(downloadFile, extractDir)
@@ -63,3 +69,4 @@ for onePackage in Package:
   installpackage(onePackage)
 #mysqlinstall()
 copie()
+installglpi()
