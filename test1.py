@@ -15,7 +15,7 @@ def telechargement (url, download):
                 with open(download,'wb') as file:
                         file.write(response.content)
         except:
-                print ("erreur1")
+                print ("erreur download")
                 
 def untar (file, path):
 #import tarfile
@@ -25,25 +25,25 @@ def untar (file, path):
                         tar.extractall(path)
                         tar.close()
         except:
-                print("erreur2")
+                print("erreur tar")
 
 def installpackage (onepackagetoinstall): 
 #apt install package
         try:
                  subprocess.call("apt install -y " + onepackagetoinstall, shell=True)
         except:
-                print("erreur3")
+                print("erreur install package")
 
 #def mysqlinstall ():
 #	try:
-#		subprocess.call("mysql_secure_installation", shell=True)
+		os.system("mysql_secure_installation", shell=True)
 #		subprocess.call("y", shell=True)
 #	except:
 #		print("erreur5")
 
 #def mysqlinstall2 ():
 #	try:
-#		subprocess.call("mysql -u root -p", shell=True)
+		os.system("mysql -u root -p=Alex0603!")
 #		subprocess.call("create database db_glpi;", shell=True)
 
 
@@ -54,7 +54,7 @@ def copie ():
 		os.system("cp -r /tmp/glpi/* /var/www/html")
 		os.system("chown -R www-data /var/www/html")
 	except:
-		print("x") 
+		print("erreur copie/droit") 
 
 def installglpi ():
 	try:
