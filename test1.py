@@ -1,13 +1,21 @@
 import requests
 import tarfile
 import subprocess
-
+import os
 
 glpiUrl='https://github.com/glpi-project/glpi/releases/download/9.5.2/glpi-9.5.2.tgz'
 downloadFile='/tmp/glpi-9.5.2.tgz'
 extractDir = '/tmp'
 Package = ["apache2", "php", "libapache2-mod-php", "mariadb-server", "php-mysqli", "php-mbstring", "php-curl", "php-gd", "php-simplexml", "php-intl", "php-ldap", "php-apcu", "php-xmlrpc", "php-cas", "php-zip", "php-bz2", "php-ldap", "php-imap"]
-        
+
+def myChown(path, uid, gid):
+	for root, dirs, files in os.walk(path):
+		for dir in dirs:
+			os.chown(os.path.join(root, dir), uid, gid)
+		for file in files:
+			os.chown(os.path.join(root, file), uid, gid)
+
+
 def telechargement (url, download):
 #import requests
         try:
@@ -47,7 +55,7 @@ def copie ():
 	try:
 		subprocess.run("rm /var/www/html/index.html", shell=True)
 		subprocess.run("cp -r /tmp/glpi/* /var/www/html", shell=True)
-		subprocess.run("chown -R www-data /var/www/html", shell=True)
+		myChown("/var/www/html", 33, 33)
 	except:
 		print("erreur copie/droit") 
 
