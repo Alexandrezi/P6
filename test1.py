@@ -57,6 +57,11 @@ def installglpi ():
 	except:
 		print("erreur installation glpi")
 
+def reloadapache2
+	try:
+		subprocess.run("systemctl restart apache2", shell=True)
+	except:
+		print("erreur redemarrage apache")
 
 telechargement(glpiUrl, downloadFile)
 untar(downloadFile, extractDir)
@@ -65,3 +70,4 @@ for onePackage in Package:
 mysqlinstall()
 copie()
 installglpi()
+reloadapache2()
