@@ -40,7 +40,8 @@ def mysqlinstall ():
 		subprocess.run('mysql -e "CREATE DATABASE db_glpi"', shell=True)
 		subprocess.run('mysql -e "GRANT ALL PRIVILEGES ON db_glpi.* TO 		 	admindb_glpi@localhost"', shell=True)
 	
-	except:
+	except:	
+		print("erreur création database")
 
 def copie ():
 	try:
