@@ -37,21 +37,22 @@ def installpackage (onepackagetoinstall):
 def mysqlinstall ():
 #installation base de données
 	try:
-		subprocess.run("mysql -e root -p=Alex0603!")
+		subprocess.run('mysql -e "CREATE DATABASE db_glpi"', shell=True)
+		subprocess.run('mysql -e "GRANT ALL PRIVILEGES ON db_glpi.* TO 		 	admindb_glpi@localhost"', shell=True)
 	
 	except:
 
 def copie ():
 	try:
-		subprocess.run("rm /var/www/html/index.html")
-		subprocess.run("cp -r /tmp/glpi/* /var/www/html")
-		subprocess.run("chown -R www-data /var/www/html")
+		subprocess.run("rm /var/www/html/index.html", shell=True)
+		subprocess.run("cp -r /tmp/glpi/* /var/www/html", shell=True)
+		subprocess.run("chown -R www-data /var/www/html", shell=True)
 	except:
 		print("erreur copie/droit") 
 
 def installglpi ():
 	try:
-		subprocess.run("php /var/www/html/bin/console db:install --reconfigure --default-language=en_GB --db-name=db_glpi --db-user=admindb_glpi --db-password=MDP --force -n")
+		subprocess.run("php /var/www/html/bin/console db:install --reconfigure --default-language=en_GB --db-name=db_glpi --db-user=admindb_glpi --db-password=MDP --force -n", shell=True)
 	except:
 		print("erreur installation glpi")
 
