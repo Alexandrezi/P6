@@ -56,6 +56,7 @@ def copie ():
 		subprocess.run("rm /var/www/html/index.html", shell=True)
 		subprocess.run("cp -r /tmp/glpi/* /var/www/html", shell=True)
 		myChown("/var/www/html", 33, 33)
+		myChown("/var/www/html", 33, 33)
 	except:
 		print("erreur copie/droit") 
 
