@@ -65,7 +65,7 @@ def installglpi ():
 	except:
 		print("erreur installation glpi")
 
-def reloadapache2
+def reloadapache2 ():
 	try:
 		subprocess.run("systemctl restart apache2", shell=True)
 	except:
