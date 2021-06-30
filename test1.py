@@ -35,12 +35,13 @@ def untar (file, path):
         except:
                 print("erreur tar")
 
-def installpackage (onepackagetoinstall): 
+def installpackage ():
 #apt install package
-        try:
-                 subprocess.call("apt install -y " + onepackagetoinstall, shell=True)
-        except:
-                print("erreur install package")
+   with open ('packages.yaml', 'r') as stream:
+      try:
+         subprocess.call("apt install -y " + yaml.safe_load(stream), shell=True)
+      except yaml.YAMLError as exc:
+         print(exc)
 
 def mysqlinstall ():
 #installation base de données
