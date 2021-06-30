@@ -2,11 +2,11 @@ import requests
 import tarfile
 import subprocess
 import os
+import yaml
 
 glpiUrl='https://github.com/glpi-project/glpi/releases/download/9.5.2/glpi-9.5.2.tgz'
 downloadFile='/tmp/glpi-9.5.2.tgz'
 extractDir = '/tmp'
-Package = ["apache2", "php", "libapache2-mod-php", "mariadb-server", "php-mysqli", "php-mbstring", "php-curl", "php-gd", "php-simplexml", "php-intl", "php-ldap", "php-apcu", "php-xmlrpc", "php-cas", "php-zip", "php-bz2", "php-ldap", "php-imap"]
 
 def myChown(path, uid, gid):
 	for root, dirs, files in os.walk(path):
@@ -75,8 +75,7 @@ def reloadapache2 ():
 
 telechargement(glpiUrl, downloadFile)
 untar(downloadFile, extractDir)
-for onePackage in Package:
-  installpackage(onePackage)
+installpackage()
 mysqlinstall()
 copie()
 installglpi()
