@@ -79,11 +79,11 @@ def reloadapache2 ():
 
 file = sys.argv[1]
 vars = readConf(file)
-#telechargement(vars['URLGLPI'], vars['downloadFile'])
-#untar(vars['downloadFile'], vars['extractDir'])
-#for package in vars['packages']:
-#	installpackage(package)
-#mysqlinstall()
+telechargement(vars['URLGLPI'], vars['downloadFile'])
+untar(vars['downloadFile'], vars['extractDir'])
+for package in vars['packages']:
+	installpackage(package)
+mysqlinstall()
 copie()
 myChown("/var/www/html", 33, 33)
 time.sleep(5)
