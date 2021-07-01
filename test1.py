@@ -1,12 +1,15 @@
 import requests
 import tarfile
 import subprocess
-import os
+import os, sys
 import yaml
 
-glpiUrl='https://github.com/glpi-project/glpi/releases/download/9.5.2/glpi-9.5.2.tgz'
-downloadFile='/tmp/glpi-9.5.2.tgz'
-extractDir = '/tmp'
+def readConf(monFichierYaml):
+	try:	
+		with open (monFichierYaml, 'r') as stream:
+			return yaml.safe_load(stream)
+	except yaml.YAMLError as exc:
+        	print(exc)
 
 def myChown(path, uid, gid):
 	for root, dirs, files in os.walk(path):
@@ -35,13 +38,12 @@ def untar (file, path):
         except:
                 print("erreur tar")
 
-def installpackage ():
+def installpackage (package):
 #apt install package
-   with open ('packages.yaml', 'r') as stream:
-      try:
-         subprocess.call("apt install -y " + yaml.safe_load(stream), shell=True)
-      except yaml.YAMLError as exc:
-         print(exc)
+	try:
+		subprocess.call("apt install -y " + package, shell=True)
+	except:
+		print("x")
 
 def mysqlinstall ():
 #installation base de données
@@ -73,9 +75,12 @@ def reloadapache2 ():
 	except:
 		print("erreur redemarrage apache")
 
-telechargement(glpiUrl, downloadFile)
-untar(downloadFile, extractDir)
-installpackage()
+file = sys.argv[1]
+vars = readConf(file)
+telechargement(vars['URLGLPI'], vars['downloadFile'])
+untar(vars['downloadFile'], vars['extractDir'])
+for package in vars['packages']:
+	installpackage(package)
 mysqlinstall()
 copie()
 installglpi()
