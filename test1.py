@@ -3,6 +3,7 @@ import tarfile
 import subprocess
 import os, sys
 import yaml
+import time
 
 def readConf(monFichierYaml):
 	try:	
@@ -12,12 +13,14 @@ def readConf(monFichierYaml):
         	print(exc)
 
 def myChown(path, uid, gid):
-	for root, dirs, files in os.walk(path):
-		for dir in dirs:
-			os.chown(os.path.join(root, dir), uid, gid)
-		for file in files:
-			os.chown(os.path.join(root, file), uid, gid)
-
+	try:
+		for root, dirs, files in os.walk(path):
+			for dir in dirs:
+				os.chown(os.path.join(root, dir), uid, gid)
+			for file in files:
+				os.chown(os.path.join(root, file), uid, gid)
+	except: 
+		print("erreur")
 
 def telechargement (url, download):
 #import requests
@@ -58,8 +61,7 @@ def copie ():
 	try:
 		subprocess.run("rm /var/www/html/index.html", shell=True)
 		subprocess.run("cp -r /tmp/glpi/* /var/www/html", shell=True)
-		myChown("/var/www/html", 33, 33)
-		myChown("/var/www/html", 33, 33)
+		
 	except:
 		print("erreur copie/droit") 
 
@@ -77,11 +79,14 @@ def reloadapache2 ():
 
 file = sys.argv[1]
 vars = readConf(file)
-telechargement(vars['URLGLPI'], vars['downloadFile'])
-untar(vars['downloadFile'], vars['extractDir'])
-for package in vars['packages']:
-	installpackage(package)
-mysqlinstall()
+#telechargement(vars['URLGLPI'], vars['downloadFile'])
+#untar(vars['downloadFile'], vars['extractDir'])
+#for package in vars['packages']:
+#	installpackage(package)
+#mysqlinstall()
 copie()
+myChown("/var/www/html", 33, 33)
+time.sleep(5)
+myChown("/var/www/html", 33, 33)
 installglpi()
 reloadapache2()
