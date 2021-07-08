@@ -76,6 +76,13 @@ def reloadapache2 ():
 		subprocess.run("systemctl restart apache2", shell=True)
 	except:
 		print("erreur redemarrage apache")
+def chown ():
+	try:
+		myChown("/var/www/html", 33, 33)
+		time.sleep(10)
+		myChown("/var/www/html", 33, 33)
+	except:
+		print("erreur droit fichier")
 
 file = sys.argv[1]
 vars = readConf(file)
@@ -85,8 +92,6 @@ for package in vars['packages']:
 	installpackage(package)
 mysqlinstall()
 copie()
-myChown("/var/www/html", 33, 33)
-time.sleep(5)
-myChown("/var/www/html", 33, 33)
 installglpi()
 reloadapache2()
+chown()
