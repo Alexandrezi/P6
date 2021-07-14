@@ -22,4 +22,6 @@ URLGLPI: 'https://github.com/glpi-project/glpi/releases/download/9.5.2/glpi-9.5.
 
 downloadFile: '/tmp/glpi-9.5.2.tgz'
 
-extractDir: '/tmp'
+extractdir: '/tmp'
+
+repertory: '/var/www/html/'
