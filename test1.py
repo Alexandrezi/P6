@@ -57,17 +57,17 @@ def mysqlinstall ():
 	except:	
 		print("erreur création database")
 
-def copie ():
+def copie (extractdir, installdir):
 	try:
-		subprocess.run("rm /var/www/html/index.html", shell=True)
-		subprocess.run("cp -r /tmp/glpi/* /var/www/html", shell=True)
+		subprocess.run("rm "+ installdir + "/index.html", shell=True)
+		subprocess.run("cp -r "+ extractdir +"/glpi/* "+ installdir, shell=True)
 		
 	except:
 		print("erreur copie/droit") 
 
-def installglpi ():
+def installglpi (installdir):
 	try:
-		subprocess.run("php /var/www/html/bin/console db:install --reconfigure --default-language=en_GB --db-name=db_glpi --db-user=admindb_glpi --db-password=MDP --force -n", shell=True)
+		subprocess.run("php "+ installdir + "/bin/console db:install --reconfigure --default-language=en_GB --db-name=db_glpi --db-user=admindb_glpi --db-password=MDP --force -n", shell=True)
 	except:
 		print("erreur installation glpi")
 
@@ -76,22 +76,22 @@ def reloadapache2 ():
 		subprocess.run("systemctl restart apache2", shell=True)
 	except:
 		print("erreur redemarrage apache")
-def chown ():
+def chown (dir):
 	try:
-		myChown("/var/www/html", 33, 33)
+		myChown(dir, 33, 33)
 		time.sleep(10)
-		myChown("/var/www/html", 33, 33)
+		myChown(dir, 33, 33)
 	except:
 		print("erreur droit fichier")
 
 file = sys.argv[1]
 vars = readConf(file)
 telechargement(vars['URLGLPI'], vars['downloadFile'])
-untar(vars['downloadFile'], vars['extractDir'])
+untar(vars['downloadFile'], vars['extractdir'])
 for package in vars['packages']:
 	installpackage(package)
 mysqlinstall()
-copie()
-installglpi()
+copie(vars['extractdir'], vars['repertory'])
+installglpi(vars['repertory'])
 reloadapache2()
-chown()
+chown(vars['repertory'])
