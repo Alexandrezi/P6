@@ -11,7 +11,7 @@ yaml - "pip3 install pyyaml"
 ##Utilisation
 
 Pour démarrer le script, utiliser cette commande dans le terminal :
-"python3 test1.py packages.yaml"
+"python3 script.py packages.yaml"
 
 Pour changer les fichier de destinations :
 
