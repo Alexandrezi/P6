@@ -72,7 +72,7 @@ def copie (extractdir, installdir):
 def installglpi (installdir, password):
 #Definition pour installler GLPI en mode console 
 	try:
-		subprocess.run("php "+ installdir + "/bin/console db:install --reconfigure --default-language=en_GB --db-name=db_glpi --db-user=admindb_glpi --db-password= "+ password + " --force -n", shell=True)
+		subprocess.run("php "+ installdir + "/bin/console db:install --reconfigure --default-language=en_GB --db-name=db_glpi --db-user=admindb_glpi --db-password="+ password + " --force -n", shell=True)
 	except:
 		print("erreur installation glpi")
 
