@@ -25,3 +25,5 @@ downloadFile: '/tmp/glpi-9.5.2.tgz'
 extractdir: '/tmp'
 
 repertory: '/var/www/html/'
+
+Passwordmysql: 'MDP'
