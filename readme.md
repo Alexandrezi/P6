@@ -4,9 +4,9 @@ Ce script permet le téléchargement et l'installation automatiques des paquets 
 
 ## Prérequis 
 
-python3 - "apt install python3" si non installé
-pip3 - "apt install python3-pip"
-yaml - "pip3 install pyyaml"
+* python3 - "apt install python3" si non installé
+* pip3 - "apt install python3-pip"
+* yaml - "pip3 install pyyaml"
 
 ## Utilisation
 
