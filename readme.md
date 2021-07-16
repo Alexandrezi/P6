@@ -22,5 +22,18 @@ Aller dans le fichier yaml, vous pouvez modifier chacun de ces éléments :
 * "repertory" :répertoire de final des fichier GLPI
 * "Passwordglpi" :mot de passe de la base de donnée GLPI
 
+## Code erreur
+
+* 1 = Erreur de lecture du fichier Yaml
+* 2 = Erreur droit fichier
+* 3 = Erreur téléchargement archive GLPI
+* 4 = Erreur décompression archive GLPI
+* 5 = Erreur installation des paquets nécessaires
+* 6 = Erreur création database mysql
+* 7 = Erreur copie des fichiers glpi / supression index.html
+* 8 = Erreur installation glpi
+* 9 = Erreur redémarrage Apache2
+* 10 = Erreur droit fichier
+
 
 
