@@ -1,14 +1,14 @@
-##Information générale
+## Information générale
 
 Ce script permet le téléchargement et l'installation automatiques des paquets requis et d'installer GLPI.
 
-##Prérequis 
+## Prérequis 
 
 python3 - "apt install python3" si non installé
 pip3 - "apt install python3-pip"
 yaml - "pip3 install pyyaml"
 
-##Utilisation
+## Utilisation
 
 Pour démarrer le script, utiliser cette commande dans le terminal :
 "python3 script.py packages.yaml"
