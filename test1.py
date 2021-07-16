@@ -55,7 +55,7 @@ def mysqlinstall (password):
 #Définition pour créer la base de donnée mysql pour GLPI
 	try:
 		subprocess.run('mysql -e "CREATE DATABASE db_glpi"', shell=True)
-		subprocess.run('mysql -e "GRANT ALL PRIVILEGES ON db_glpi.* TO admindb_glpi@localhost IDENTIFIED BY \''+ password'\'"', shell=True)
+		subprocess.run('mysql -e "GRANT ALL PRIVILEGES ON db_glpi.* TO admindb_glpi@localhost IDENTIFIED BY \'"'+ password + '"\'"', shell=True)
 	
 	except:	
 		print("erreur création database")
@@ -72,7 +72,7 @@ def copie (extractdir, installdir):
 def installglpi (installdir, password):
 #Definition pour installler GLPI en mode console 
 	try:
-		subprocess.run("php "+ installdir + "/bin/console db:install --reconfigure --default-language=en_GB --db-name=db_glpi --db-user=admindb_glpi --db-password= "+ password " --force -n", shell=True)
+		subprocess.run("php "+ installdir + "/bin/console db:install --reconfigure --default-language=en_GB --db-name=db_glpi --db-user=admindb_glpi --db-password= "+ password + " --force -n", shell=True)
 	except:
 		print("erreur installation glpi")
 
