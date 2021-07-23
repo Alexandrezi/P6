@@ -13,7 +13,8 @@ def readConf(monFichierYaml):
 			return yaml.safe_load(stream)
 	except yaml.YAMLError as exc:
         	print(exc)
-
+                exit(1)
+                
 def myChown(path, uid, gid):
 #Definition pour attribuer les droits nécessaires
 	try:
@@ -24,6 +25,7 @@ def myChown(path, uid, gid):
 				os.chown(os.path.join(root, file), uid, gid)
 	except: 
 		print("erreur chown")
+		exit(2)
 
 def telechargement (url, download):
 #Definition pour télécharger l'archive' GLPI depuis un URL indiqué dans le fichier YAML
@@ -33,6 +35,7 @@ def telechargement (url, download):
                         file.write(response.content)
         except:
                 print ("erreur download de l'archive GLPI")
+                exit(3)
                 
 def untar (file, path):
 #Definition pour décompresser l'archive GLPI vers le dossier tmp
@@ -43,6 +46,7 @@ def untar (file, path):
                         tar.close()
         except:
                 print("erreur untar archive glpi")
+                exit(4)
 
 def installpackage (package):
 #Definition pour installer les paquets nécessaire à GLPI se trouvant dans le fichier YAML
@@ -50,6 +54,7 @@ def installpackage (package):
 		subprocess.call("apt install -y " + package, shell=True)
 	except:
 		print("erreur d'installation des paquets nécessaire")
+		exit(5)
 
 def mysqlinstall (password):
 #Définition pour créer la base de donnée mysql pour GLPI
@@ -59,6 +64,7 @@ def mysqlinstall (password):
 	
 	except:	
 		print("erreur création database")
+		exit(6)
 
 def copie (extractdir, installdir):
 #Definition pour supprimer la page apache2 par défaut et copier les fichier GLPI
@@ -67,7 +73,8 @@ def copie (extractdir, installdir):
 		subprocess.run("cp -r "+ extractdir +"/glpi/* "+ installdir, shell=True)
 		
 	except:
-		print("erreur copie/droit") 
+		print("erreur copie/droit")
+		exit(7)
 
 def installglpi (installdir, password):
 #Definition pour installler GLPI en mode console 
@@ -75,6 +82,7 @@ def installglpi (installdir, password):
 		subprocess.run("php "+ installdir + "/bin/console db:install --reconfigure --default-language=en_GB --db-name=db_glpi --db-user=admindb_glpi --db-password="+ password + " --force -n", shell=True)
 	except:
 		print("erreur installation glpi")
+		exit(8)
 
 def reloadapache2 ():
 #Définition pour redémarrer le service apache2
@@ -82,6 +90,7 @@ def reloadapache2 ():
 		subprocess.run("systemctl restart apache2", shell=True)
 	except:
 		print("erreur redemarrage apache")
+		exit(9)
 
 def chown (dir):
 #Definition pour attribuer les droits nécessaires à GLPI
@@ -91,6 +100,7 @@ def chown (dir):
 		myChown(dir, 33, 33)
 	except:
 		print("erreur droit fichier")
+		exit(10)
 
 #Lancement des différents définitions
 
