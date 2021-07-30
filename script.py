@@ -12,9 +12,9 @@ def readConf(monFichierYaml):
 		with open (monFichierYaml, 'r') as stream:
 			return yaml.safe_load(stream)
 	except yaml.YAMLError as exc:
-        	print(exc)
-                exit(1)
-                
+		print(exc)
+		exit(1)
+
 def myChown(path, uid, gid):
 #Definition pour attribuer les droits nécessaires
 	try:
@@ -36,7 +36,7 @@ def telechargement (url, download):
         except:
                 print ("erreur download de l'archive GLPI")
                 exit(3)
-                
+               
 def untar (file, path):
 #Definition pour décompresser l'archive GLPI vers le dossier tmp
         try:
